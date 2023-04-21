@@ -1,0 +1,39 @@
+@page "/agora"
+
+@inject IJSRuntime JsRuntime
+
+<div class="d-flex justify-content-center">
+    <button id="join-btn" class="btn btn-primary">Join Stream</button>
+</div>
+
+<div id="stream-wrapper">
+    <div id="video-streams"></div>
+
+    <div id="stream-controls" class="btn-group mt-2">
+        <button id="leave-btn" class="btn btn-outline-primary">Leave Stream</button>
+        <button id="mic-btn" class="btn btn-outline-primary">Mic On</button>
+        <button id="camera-btn" class="btn btn-outline-primary">Camera on</button>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    private IConfiguration Configuration { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        var appId = Configuration["Agora:AppId"];
+        var token = Configuration["Agora:TempToken"];
+        var channel = Configuration["Agora:Channel"];
+
+        await JsRuntime.InvokeVoidAsync("initialize", appId, token, channel);
+    }
+
+    [JSInvokable]
+    public static void JsInvokable()
+    {
+    }
+}

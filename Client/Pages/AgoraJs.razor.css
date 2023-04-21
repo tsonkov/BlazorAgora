@@ -1,0 +1,27 @@
+#join-btn {
+  font-size: 18px;
+}
+
+::deep #video-streams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  height: 85vh;
+  width: 1400px;
+  margin: 0 auto;
+}
+
+::deep #stream-controls {
+  display: none;
+}
+
+::deep .video-player {
+  height: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 1400px) {
+  #video-streams {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    width: 100%;
+  }
+}
